@@ -2,4 +2,9 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/WordleGen/bin/Debug/net6.0
+/.vs
+/WordleGen/obj
+/WordleGen/bin
+/Wordlerererer.App/.vs
+/Wordlerererer.App/bin
+/Wordlerererer.App/obj

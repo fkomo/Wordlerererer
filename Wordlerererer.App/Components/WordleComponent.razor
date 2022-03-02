@@ -1,0 +1,27 @@
+﻿@using System.Net.Http.Json
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Components.Forms
+@using Ujeby.Blazor.Base
+@using Ujeby.Blazor.Base.Components
+@using Ujeby.Wordlerererer.App.ViewModels
+
+
+@inherits ComponentBase<WordleViewModel, IWordleApplicationState, ApplicationSettings>;
+
+<MudContainer Class="d-flex justify-center align-center">
+
+	<MudButtonGroup Variant="Variant.Filled" OverrideStyles="false">
+		@foreach (var wChar in ViewModel.Data.Chars)
+		{
+			<MudButton Color="@GetWordleCharColor(wChar.Type)" Variant="Variant.Filled" @onclick="() => CharClickedAsync(wChar)">
+				<MudText Typo="Typo.h5">
+					<strong>@wChar.Value.ToString().ToUpper()</strong>
+				</MudText>
+			</MudButton>
+		}
+	</MudButtonGroup>
+
+	<MudIconButton style="margin-left:32px;" Variant="Variant.Outlined" Color="Color.Error" Icon="@Icons.Material.Filled.DeleteForever"
+				   OnClick="RemoveAsync" />
+
+</MudContainer>

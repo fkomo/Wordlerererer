@@ -1,33 +1,37 @@
-﻿@inherits LayoutComponentBase
+﻿@using Ujeby.Blazor.Base
+@using Ujeby.Blazor.Base.Components
 
-<MudThemeProvider />
+@inherits LayoutComponentBase
+
+@inject IApplicationState AppState
+
+<MudThemeProvider @bind-IsDarkMode="@AppState.DarkMode" Theme="Theme" />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
 <MudLayout>
-    <MudAppBar Elevation="0">
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
-        <MudSpacer />
-        <MudIconButton Icon="@Icons.Custom.Brands.MudBlazor" Color="Color.Inherit" Link="https://mudblazor.com/" Target="_blank" />
-        <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Link="https://github.com/MudBlazor/MudBlazor/" Target="_blank" />
-    </MudAppBar>
-    <MudDrawer @bind-Open="_drawerOpen" Elevation="1">
-        <MudDrawerHeader>
-            <MudText Typo="Typo.h6">Wordlerererer.App</MudText>
-        </MudDrawerHeader>
-    </MudDrawer>
-    <MudMainContent>
-        <MudContainer MaxWidth="MaxWidth.Large" Class="my-16 pt-16">
-            @Body
-        </MudContainer>
-    </MudMainContent>
+	<MudAppBar Elevation="0">
+
+		<HomeComponent />
+
+		<MudSpacer />
+
+@*		<CultureSelectorComponent />
+*@
+		<MudToggleIconButton @bind-Toggled="@AppState.DarkMode"
+							 Icon="@Icons.Material.Filled.DarkMode" ToggledIcon="@Icons.Material.Filled.LightMode" />
+
+		<MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Link="https://github.com/fkomo/Wordlerererer/" Target="_blank" />
+	</MudAppBar>
+
+	<MudMainContent>
+		<MudContainer MaxWidth="MaxWidth.ExtraExtraLarge" Class="my-8">
+			@Body
+		</MudContainer>
+	</MudMainContent>
+
 </MudLayout>
 
 @code {
-    bool _drawerOpen = true;
-
-    void DrawerToggle()
-    {
-        _drawerOpen = !_drawerOpen;
-    }
+	private MudTheme Theme = new();
 }

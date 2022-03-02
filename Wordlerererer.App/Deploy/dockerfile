@@ -1,18 +1,15 @@
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["Ujeby.Blazor.Base/Ujeby.Blazor.Base.csproj", "Ujeby.Blazor.Base/"]
-COPY ["Ujeby.Api.Client.Base/Ujeby.Api.Client.Base.csproj", "Ujeby.Api.Client.Base/"]
-COPY ["Billingares.Api/Billingares.Api.csproj", "Billingares.Api/"]
-COPY ["Billingares.Api.Client/Billingares.Api.Client.csproj", "Billingares.Api.Client/"]
-COPY ["Billingares.Blazor/Billingares.Blazor.csproj", "Billingares.Blazor/"]
-COPY ["Billingares.App/Billingares.App.csproj", "Billingares.App/"]
-RUN dotnet restore "Billingares.App/Billingares.App.csproj"
+COPY ["../Ujeby.Blazor.Base/Ujeby.Blazor.Base.csproj", "Ujeby.Blazor.Base/"]
+COPY ["WordleGen/WordleGen.csproj", "WordleGen/"]
+COPY ["Wordlerererer.App/Wordlerererer.App.csproj", "Wordlerererer.App/"]
+RUN dotnet restore "Wordlerererer.App/Wordlerererer.App.csproj"
 COPY . .
-WORKDIR "/src/Billingares.App"
-RUN dotnet build "Billingares.App.csproj" -c Release -o /app/build
+WORKDIR "/src/Wordlerererer.App"
+RUN dotnet build "Wordlerererer.App.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Billingares.App.csproj" -c Release -o /app/publish
+RUN dotnet publish "Wordlerererer.App.csproj" -c Release -o /app/publish
 
 FROM nginx:alpine AS final
 WORKDIR /usr/share/nginx/html

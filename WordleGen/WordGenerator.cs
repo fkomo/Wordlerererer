@@ -76,7 +76,7 @@ namespace Ujeby.WordleGen
 	{
 		public static char[] All = "abcdefghijklmnopqrstuvwxyz".ToArray();
 
-		public static string[] WordDictionary { get; set; } = null;
+		public static string[] WordDictionary { get; set; } = Array.Empty<string>();
 
 		private static bool CheckWord(string word, WordleMap wordle)
 		{

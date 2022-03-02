@@ -3,9 +3,25 @@
 @using Ujeby.Wordlerererer.App.Components
 
 @inject IWordleApplicationState AppState
+@inject NavigationManager NavManager
 
 <PageTitle>@AppState.ApplicationTitle</PageTitle>
 
 <WordlesColumnComponent Words="learn,mango,sauna,names" />
 
 <WordsComponent />
+
+@code {
+
+	protected async override Task OnInitializedAsync()
+	{
+		if (!Ujeby.WordleGen.WordGenerator.WordDictionary.Any())
+		{
+			var response = await new HttpClient().GetStringAsync($"{ NavManager.BaseUri }content/dictionary.txt");
+			Ujeby.WordleGen.WordGenerator.WordDictionary = response.Split('\n', StringSplitOptions.RemoveEmptyEntries)
+				.Where(w => w.Length == Ujeby.WordleGen.WordleMap.WordLength).ToArray();
+		}
+
+		await Task.CompletedTask;
+	}
+}

@@ -10,13 +10,13 @@ namespace Ujeby.Wordlerererer.App.Components
 	public partial class WordlesColumnComponent : ComponentBase<WordlesColumnViewModel, IWordleApplicationState, ApplicationSettings>
 	{
 		[Parameter]
-		public string Words { get; set; }
+		public string Words { get; set; } = string.Empty;
 
-		protected override Task OnLoadDataAsync()
+		protected override async Task OnParametersSetAsync()
 		{
 			ViewModel.Words = Words?.Split(',', StringSplitOptions.RemoveEmptyEntries) ?? Array.Empty<string>();
 
-			return base.OnLoadDataAsync();
+			await base.OnParametersSetAsync();
 		}
 
 		protected override void OnInitialized()

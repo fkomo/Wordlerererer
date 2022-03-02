@@ -19,13 +19,6 @@ builder.Services.AddSingleton((_) =>
 
 //builder.Services.AddLocalization();
 
-if (Ujeby.WordleGen.WordGenerator.WordDictionary == null)
-{
-	var response = await new HttpClient().GetStringAsync("https://localhost:8030/content/dictionary.txt");
-	Ujeby.WordleGen.WordGenerator.WordDictionary = response.Split('\n', StringSplitOptions.RemoveEmptyEntries)
-		.Where(w => w.Length == Ujeby.WordleGen.WordleMap.WordLength).ToArray();
-}
-
 var host = builder.Build();
 
 //await host.SetDefaultCulture();

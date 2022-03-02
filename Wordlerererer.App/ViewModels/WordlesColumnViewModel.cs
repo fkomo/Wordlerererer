@@ -5,7 +5,7 @@ namespace Ujeby.Wordlerererer.App.ViewModels
 {
 	public class WordlesColumnViewModel : ViewModelBase
 	{
-		public string[] Words { get; set; } = null;
+		public string[] Words { get; set; } = Array.Empty<string>();
 
 		public WordlesColumnViewModel() : base()
 		{

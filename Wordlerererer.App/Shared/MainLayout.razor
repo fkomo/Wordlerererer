@@ -1,33 +1,65 @@
-﻿@inherits LayoutComponentBase
+﻿@using Ujeby.Blazor.Base
+@using Ujeby.Blazor.Base.Components
 
-<MudThemeProvider />
+@inherits LayoutComponentBase
+
+@inject IWordleApplicationState AppState
+@inject NavigationManager NavManager
+
+
+<PageTitle>@AppState.ApplicationTitle</PageTitle>
+
+<MudThemeProvider @bind-IsDarkMode="@AppState.DarkMode" Theme="Theme" />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
-<MudLayout>
-    <MudAppBar Elevation="0">
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
-        <MudSpacer />
-        <MudIconButton Icon="@Icons.Custom.Brands.MudBlazor" Color="Color.Inherit" Link="https://mudblazor.com/" Target="_blank" />
-        <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Link="https://github.com/MudBlazor/MudBlazor/" Target="_blank" />
-    </MudAppBar>
-    <MudDrawer @bind-Open="_drawerOpen" Elevation="1">
-        <MudDrawerHeader>
-            <MudText Typo="Typo.h6">Wordlerererer.App</MudText>
-        </MudDrawerHeader>
-    </MudDrawer>
-    <MudMainContent>
-        <MudContainer MaxWidth="MaxWidth.Large" Class="my-16 pt-16">
-            @Body
-        </MudContainer>
-    </MudMainContent>
-</MudLayout>
+<div tabindex="0" @ref="keyPressContainer" @onkeydown="onKeyDown" id="keyPressContainer">
+	<MudLayout>
+		<MudAppBar Elevation="0">
+
+			<HomeComponent />
+
+			<MudSpacer />
+
+			<MudToggleIconButton @bind-Toggled="@AppState.DarkMode"
+								 Icon="@Icons.Material.Filled.DarkMode" ToggledIcon="@Icons.Material.Filled.LightMode" />
+
+			<MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Link="https://github.com/fkomo/Wordlerererer/"
+						   Target="_blank" />
+		</MudAppBar>
+
+		<MudMainContent>
+			<MudContainer MaxWidth="MaxWidth.ExtraExtraLarge" Class="my-8">
+				@Body
+			</MudContainer>
+		</MudMainContent>
+
+	</MudLayout>
+</div>
 
 @code {
-    bool _drawerOpen = true;
+	private MudTheme Theme = new();
 
-    void DrawerToggle()
-    {
-        _drawerOpen = !_drawerOpen;
-    }
+	ElementReference keyPressContainer;
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		await keyPressContainer.FocusAsync();
+	}
+
+	private void onKeyDown(KeyboardEventArgs obj)
+	{
+		AppState.KeyPress(obj.Key);
+	}
+
+	protected async override Task OnInitializedAsync()
+	{
+		if (!Ujeby.WordleGen.WordGenerator.WordDictionary.Any())
+		{
+			var response = await new HttpClient().GetStringAsync($"{ NavManager.BaseUri }content/dictionary.txt");
+			Ujeby.WordleGen.WordGenerator.WordDictionary = response.Split('\n', StringSplitOptions.RemoveEmptyEntries)
+				.Where(w => w.Length == Ujeby.WordleGen.WordleMap.WordLength).ToArray();
+		}
+
+		await Task.CompletedTask;
+	}
 }

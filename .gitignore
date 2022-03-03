@@ -8,3 +8,5 @@
 /Wordlerererer.App/.vs
 /Wordlerererer.App/bin
 /Wordlerererer.App/obj
+/Deploy/*.tar
+/Deploy/3rd

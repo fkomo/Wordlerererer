@@ -20,5 +20,11 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\WordleGen\WordleGen.csproj" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="Ujeby.Blazor.Base">
+	    <HintPath>..\..\Ujeby\Deploy\Ujeby.Blazor.Base.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
 	
 </Project>

@@ -1,0 +1,23 @@
+﻿@using System.Net.Http.Json
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Components.Forms
+@using Ujeby.Blazor.Base
+@using Ujeby.Blazor.Base.Components
+@using Ujeby.Wordlerererer.App.ViewModels
+
+
+@inherits ComponentBase<WordlesColumnViewModel, IWordleApplicationState, ApplicationSettings>;
+
+<MudGrid style="margin-bottom:20px;">
+	@foreach (var word in ViewModel.Words)
+	{
+		<MudItem xs="12">
+			<WordleComponent Word="@word" />
+		</MudItem>
+	}
+
+	<MudItem xs="12">
+		<WordleComponent Word="@string.Empty" />
+	</MudItem>
+
+</MudGrid>

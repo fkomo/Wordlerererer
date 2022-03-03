@@ -7,6 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wordlerererer.App", "Wordle
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordleGen", "WordleGen\WordleGen.csproj", "{259898D4-5B0F-47E0-99CF-471D708A457D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{74064009-3C13-4D56-AACD-32F32EFF2878}"
+	ProjectSection(SolutionItems) = preProject
+		Deploy\build-release-docker.ps1 = Deploy\build-release-docker.ps1
+		Deploy\build-test-docker.ps1 = Deploy\build-test-docker.ps1
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

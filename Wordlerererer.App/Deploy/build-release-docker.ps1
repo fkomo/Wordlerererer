@@ -8,6 +8,7 @@ $ujebyBlazorBase = $ujeby + 'Ujeby.Blazor.Base.dll'
 try
 {
 	# gather referenced libraries
+	New-Item -Force -ItemType directory -Path .\Deploy\3rd
 	Copy-Item $ujebyBlazorBase -Destination .\Deploy\3rd\Ujeby.Blazor.Base.dll -verbose -force
 
 	# use appsettings.Release.json

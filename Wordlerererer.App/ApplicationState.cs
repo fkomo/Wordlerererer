@@ -8,6 +8,9 @@ namespace Ujeby.Wordlerererer.App
         Dictionary<string, Wordle> Wordles { get; set; }
 
         void UpdateWordle(string key, Wordle value);
+
+        event Action<string> OnKeyPress;
+        void KeyPress(string key);
     }
 
     public class ApplicationState : ApplicationStateBase, IWordleApplicationState
@@ -29,6 +32,8 @@ namespace Ujeby.Wordlerererer.App
 
         public Dictionary<string, Wordle> Wordles { get; set; } = new Dictionary<string, Wordle>();
 
+        public string Key { get; set; }
+
         public void UpdateWordle(string key, Wordle value)
 		{
             if (Wordles.ContainsKey(key))
@@ -38,6 +43,12 @@ namespace Ujeby.Wordlerererer.App
                 Wordles.Add(key, value);
 
             NotifyStateChanged();
+        }
+
+        public event Action<string> OnKeyPress;
+        public void KeyPress(string key)
+		{
+            this.OnKeyPress?.Invoke(key);
         }
     }
 }

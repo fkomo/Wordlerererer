@@ -30,14 +30,13 @@ namespace Ujeby.Wordlerererer.App.Components
 		{
 			IsBusy = true;
 
-			ViewModel.Words = AppState.Wordles.Values.Select(w => new string(w.Chars.Select(c => c.Value).ToArray())).ToArray();
+			ViewModel.Words = AppState.Wordles.Values.Select(w => w.Word).ToArray();
 			Words = string.Join(',', ViewModel.Words);
 
 			IsBusy = false;
 
-			await Task.CompletedTask;
-
-			StateHasChanged();
+			await this.OnUpdateAsync();
+			//StateHasChanged();
 		}
 
 		protected override void Dispose(bool disposing)

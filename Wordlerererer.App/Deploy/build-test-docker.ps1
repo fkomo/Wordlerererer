@@ -1,25 +1,32 @@
 # move to solution root
 Set-Location -Path "..\.."
 
+# path to referenced libraries/projects
+$ujeby = '..\Ujeby\Deploy\'
+$ujebyBlazorBase = $ujeby + 'Ujeby.Blazor.Base.dll'
+
 try
 {
+	# gather referenced libraries
+	Copy-Item $ujebyBlazorBase -Destination .\Deploy\3rd\Ujeby.Blazor.Base.dll -verbose -force
+
 	# use appsettings.Test.json
 	Copy-Item Wordlerererer.App\wwwroot\appsettings.Test.json -Destination Wordlerererer.App\wwwroot\appsettings.json -verbose
 
 	# copy config files to solution root (temporary)
-	Copy-Item Wordlerererer.App\Deploy\dockerfile -Destination .\dockerfile-Wordlerererer.App -verbose
+	Copy-Item Wordlerererer.App\Deploy\dockerfile -Destination .\dockerfile-wordlerererer.app -verbose
 	Copy-Item Wordlerererer.App\Deploy\nginx.conf -Destination . -verbose
 
 	# stop&remove old docker image
-	docker stop Wordlerererer.App
-	docker rm Wordlerererer.App
+	docker stop wordlerererer.app
+	docker rm wordlerererer.app
 	docker image prune -a -f
 
 	# build new docker image
-	docker build -f dockerfile-Wordlerererer.App -t Wordlerererer.App-docker .
+	docker build -f dockerfile-wordlerererer.app -t wordlerererer.app-docker .
 
 	# run new image on localhost
-	docker run -d --name Wordlerererer.App -p 8051:80 Wordlerererer.App-docker
+	docker run -d --name wordlerererer.app -p 8051:80 wordlerererer.app-docker
 
 	Write-Output "... Success!"
 }
@@ -30,7 +37,7 @@ catch
 finally
 {
 	# remove temporary files
-	Remove-Item .\dockerfile-Wordlerererer.App -verbose
+	Remove-Item .\dockerfile-wordlerererer.app -verbose
 	Remove-Item .\nginx.conf -verbose
 
 	# restore appsettings.Debug.json

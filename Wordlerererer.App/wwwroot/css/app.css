@@ -60,3 +60,21 @@
 		stroke: #32333c;
 	}
 }
+
+#keyPressContainer {
+	position: absolute;
+	padding: 0;
+	margin: 0;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+#keyPressContainer:focus-visible {
+	outline: none;
+}
+
+#keyPressContainer:focus {
+	outline: none;
+}

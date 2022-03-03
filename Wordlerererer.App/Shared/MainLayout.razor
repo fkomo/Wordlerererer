@@ -3,35 +3,63 @@
 
 @inherits LayoutComponentBase
 
-@inject IApplicationState AppState
+@inject IWordleApplicationState AppState
+@inject NavigationManager NavManager
+
+
+<PageTitle>@AppState.ApplicationTitle</PageTitle>
 
 <MudThemeProvider @bind-IsDarkMode="@AppState.DarkMode" Theme="Theme" />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
-<MudLayout>
-	<MudAppBar Elevation="0">
+<div tabindex="0" @ref="keyPressContainer" @onkeydown="onKeyDown" id="keyPressContainer">
+	<MudLayout>
+		<MudAppBar Elevation="0">
 
-		<HomeComponent />
+			<HomeComponent />
 
-		<MudSpacer />
+			<MudSpacer />
 
-@*		<CultureSelectorComponent />
-*@
-		<MudToggleIconButton @bind-Toggled="@AppState.DarkMode"
-							 Icon="@Icons.Material.Filled.DarkMode" ToggledIcon="@Icons.Material.Filled.LightMode" />
+			<MudToggleIconButton @bind-Toggled="@AppState.DarkMode"
+								 Icon="@Icons.Material.Filled.DarkMode" ToggledIcon="@Icons.Material.Filled.LightMode" />
 
-		<MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Link="https://github.com/fkomo/Wordlerererer/" Target="_blank" />
-	</MudAppBar>
+			<MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Link="https://github.com/fkomo/Wordlerererer/"
+						   Target="_blank" />
+		</MudAppBar>
 
-	<MudMainContent>
-		<MudContainer MaxWidth="MaxWidth.ExtraExtraLarge" Class="my-8">
-			@Body
-		</MudContainer>
-	</MudMainContent>
+		<MudMainContent>
+			<MudContainer MaxWidth="MaxWidth.ExtraExtraLarge" Class="my-8">
+				@Body
+			</MudContainer>
+		</MudMainContent>
 
-</MudLayout>
+	</MudLayout>
+</div>
 
 @code {
 	private MudTheme Theme = new();
+
+	ElementReference keyPressContainer;
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		await keyPressContainer.FocusAsync();
+	}
+
+	private void onKeyDown(KeyboardEventArgs obj)
+	{
+		AppState.KeyPress(obj.Key);
+	}
+
+	protected async override Task OnInitializedAsync()
+	{
+		if (!Ujeby.WordleGen.WordGenerator.WordDictionary.Any())
+		{
+			var response = await new HttpClient().GetStringAsync($"{ NavManager.BaseUri }content/dictionary.txt");
+			Ujeby.WordleGen.WordGenerator.WordDictionary = response.Split('\n', StringSplitOptions.RemoveEmptyEntries)
+				.Where(w => w.Length == Ujeby.WordleGen.WordleMap.WordLength).ToArray();
+		}
+
+		await Task.CompletedTask;
+	}
 }

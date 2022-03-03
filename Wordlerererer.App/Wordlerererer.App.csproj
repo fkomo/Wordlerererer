@@ -23,7 +23,7 @@
 
 	<ItemGroup>
 	  <Reference Include="Ujeby.Blazor.Base">
-	    <HintPath>..\..\Ujeby\Ujeby.Blazor.Base\bin\Debug\net6.0\Ujeby.Blazor.Base.dll</HintPath>
+	    <HintPath>..\..\Ujeby\Deploy\Ujeby.Blazor.Base.dll</HintPath>
 	  </Reference>
 	</ItemGroup>
 	

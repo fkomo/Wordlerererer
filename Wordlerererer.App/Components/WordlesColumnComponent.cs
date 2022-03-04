@@ -11,12 +11,12 @@ namespace Ujeby.Wordlerererer.App.Components
 	{
 		protected override void OnInitialized()
 		{
-			AppState.OnChange += OnWordlesChangedAsync;
+			AppState.OnChange += OnWordlesChanged;
 
 			base.OnInitialized();
 		}
 
-		private async void OnWordlesChangedAsync()
+		private void OnWordlesChanged()
 		{
 			IsBusy = true;
 
@@ -29,7 +29,7 @@ namespace Ujeby.Wordlerererer.App.Components
 
 		protected override void Dispose(bool disposing)
 		{
-			AppState.OnChange -= OnWordlesChangedAsync;
+			AppState.OnChange -= OnWordlesChanged;
 		}
 	}
 }

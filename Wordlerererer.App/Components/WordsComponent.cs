@@ -6,7 +6,7 @@ namespace Ujeby.Wordlerererer.App.Components
 {
 	public partial class WordsComponent : ComponentBase<WordsViewModel, IWordleApplicationState, ApplicationSettings>
 	{
-		private WordGenerator _WorldGenerator = new();
+		private readonly WordGenerator _WorldGenerator = new();
 
 		protected override async Task OnInitializedAsync()
 		{

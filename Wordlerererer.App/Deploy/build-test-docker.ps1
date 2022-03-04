@@ -3,12 +3,14 @@ Set-Location -Path "..\.."
 
 # path to referenced libraries/projects
 $ujeby = '..\Ujeby\Deploy\'
+$ujebyCommon = $ujeby + 'Ujeby.Common.dll'
 $ujebyBlazorBase = $ujeby + 'Ujeby.Blazor.Base.dll'
 
 try
 {
 	# gather referenced libraries
 	New-Item -Force -ItemType directory -Path .\Deploy\3rd
+	Copy-Item $ujebyCommon -Destination .\Deploy\3rd\Ujeby.Common.dll -verbose -force
 	Copy-Item $ujebyBlazorBase -Destination .\Deploy\3rd\Ujeby.Blazor.Base.dll -verbose -force
 
 	# use appsettings.Test.json

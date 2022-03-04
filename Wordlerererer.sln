@@ -13,6 +13,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{740640
 		Deploy\build-test-docker.ps1 = Deploy\build-test-docker.ps1
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dictionaries", "Dictionaries", "{BE987840-62E6-4FC3-97E9-38E1CA0DB79B}"
+	ProjectSection(SolutionItems) = preProject
+		Deploy\Dictionaries\eng-5letter-compressed.bin = Deploy\Dictionaries\eng-5letter-compressed.bin
+		Deploy\Dictionaries\eng-5letter.txt = Deploy\Dictionaries\eng-5letter.txt
+		Deploy\Dictionaries\eng-all-compressed.bin = Deploy\Dictionaries\eng-all-compressed.bin
+		Deploy\Dictionaries\eng-all.txt = Deploy\Dictionaries\eng-all.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +38,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BE987840-62E6-4FC3-97E9-38E1CA0DB79B} = {74064009-3C13-4D56-AACD-32F32EFF2878}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {972DD527-7056-4362-9CA3-4A1EFF744509}

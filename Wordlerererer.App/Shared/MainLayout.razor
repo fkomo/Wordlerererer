@@ -5,6 +5,7 @@
 
 @inject IWordleApplicationState AppState
 @inject NavigationManager NavManager
+@inject ApplicationSettings AppSettings
 
 
 <PageTitle>@AppState.ApplicationTitle</PageTitle>
@@ -55,8 +56,23 @@
 	{
 		if (!Ujeby.WordleGen.WordGenerator.WordDictionary.Any())
 		{
-			var response = await new HttpClient().GetStringAsync($"{ NavManager.BaseUri }content/dictionary.txt");
-			Ujeby.WordleGen.WordGenerator.WordDictionary = response.Split('\n', StringSplitOptions.RemoveEmptyEntries)
+			var httpClient = new HttpClient();
+
+			var dictionary = string.Empty;
+
+			var response = await httpClient.GetAsync($"{ NavManager.BaseUri }content/dictionary");
+			if (response.IsSuccessStatusCode)
+			{
+				if (AppSettings.CompressedDictionary)
+				{
+					var compressedDictionary = await response.Content.ReadAsByteArrayAsync();
+					dictionary = Ujeby.Common.Serialization.Decompress(compressedDictionary);
+				}
+				else
+					dictionary = await response.Content.ReadAsStringAsync();
+			}
+
+			Ujeby.WordleGen.WordGenerator.WordDictionary = dictionary.Split('\n', StringSplitOptions.RemoveEmptyEntries)
 				.Where(w => w.Length == Ujeby.WordleGen.WordleMap.WordLength).ToArray();
 		}
 

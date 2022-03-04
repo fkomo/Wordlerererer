@@ -25,6 +25,9 @@
 	  <Reference Include="Ujeby.Blazor.Base">
 	    <HintPath>..\..\Ujeby\Deploy\Ujeby.Blazor.Base.dll</HintPath>
 	  </Reference>
+	  <Reference Include="Ujeby.Common">
+	    <HintPath>..\..\Ujeby\Deploy\Ujeby.Common.dll</HintPath>
+	  </Reference>
 	</ItemGroup>
 	
 </Project>

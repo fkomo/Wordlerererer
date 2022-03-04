@@ -8,16 +8,17 @@
 
 @inherits ComponentBase<WordlesColumnViewModel, IWordleApplicationState, ApplicationSettings>;
 
-<MudGrid style="margin-bottom:20px;">
+ <MudGrid style="margin-bottom:20px;">
+	
+	<MudItem xs="12">
+		<WordleComponent Word="@string.Empty" />
+	</MudItem>
+
 	@foreach (var word in ViewModel.Words)
 	{
 		<MudItem xs="12">
 			<WordleComponent Word="@word" />
 		</MudItem>
 	}
-
-	<MudItem xs="12">
-		<WordleComponent Word="@string.Empty" />
-	</MudItem>
 
 </MudGrid>

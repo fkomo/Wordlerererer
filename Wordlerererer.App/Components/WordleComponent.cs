@@ -52,6 +52,7 @@ namespace Ujeby.Wordlerererer.App.Components
 		}
 
 		private void OnKeyPress(string key)
+
 		{
 			if (key?.ToLower() == "backspace" && Word?.Length > 0)
 				Word = Word[..^1];

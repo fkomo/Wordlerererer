@@ -1,6 +1,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src/Ujeby/Deploy
 COPY ["Deploy/3rd/Ujeby.Blazor.Base.dll", "."]
+COPY ["Deploy/3rd/Ujeby.Common.dll", "."]
 WORKDIR /src/Wordlerererer
 COPY ["WordleGen/WordleGen.csproj", "WordleGen/"]
 COPY ["Wordlerererer.App/Wordlerererer.App.csproj", "Wordlerererer.App/"]

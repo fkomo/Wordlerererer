@@ -15,7 +15,7 @@
 		{
 			@foreach (var wChar in ViewModel.Data.Chars)
 			{
-				<MudButton Color="@GetWordleCharColor(wChar.Type)" Variant="Variant.Filled" @onclick="() => CharClickedAsync(wChar)">
+				<MudButton Color="@GetWordleCharColor(wChar.Type)" Variant="Variant.Filled" @onclick="() => CharClicked(wChar)">
 					<MudText Typo="Typo.h5">
 						<strong>@wChar.Value.ToString().ToUpper()</strong>
 					</MudText>
@@ -26,7 +26,7 @@
 		{
 			@foreach (var _char in Word)
 			{
-				<MudButton Color="MudBlazor.Color.Surface" Variant="Variant.Filled">
+				<MudButton Color="MudBlazor.Color.Default" Variant="Variant.Filled">
 					<MudText Typo="Typo.h5">
 						<strong>@_char.ToString().ToUpper()</strong>
 					</MudText>
@@ -34,8 +34,10 @@
 			}
 			@for (var i = Word.Length; i < WordleGen.WordleMap.WordLength; i++)
 			{
-				<MudButton Color="MudBlazor.Color.Surface" Variant="Variant.Filled">
-					<MudText Typo="Typo.h5">&nbsp;</MudText>
+				<MudButton Color="MudBlazor.Color.Default" Disabled="true" Variant="Variant.Filled">
+					<MudText Color="MudBlazor.Color.Dark" Typo="Typo.h5">
+						<strong>?</strong>
+					</MudText>
 				</MudButton>
 			}
 		}
@@ -44,7 +46,7 @@
 	@if (Valid)
 	{
 		<MudIconButton style="margin-left:32px;" Variant="Variant.Outlined" Color="Color.Error" Icon="@Icons.Material.Filled.DeleteForever"
-				   OnClick="RemoveAsync" />
+				   OnClick="Remove" />
 	}
 
 </MudContainer>

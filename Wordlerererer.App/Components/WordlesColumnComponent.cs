@@ -9,16 +9,6 @@ namespace Ujeby.Wordlerererer.App.Components
 {
 	public partial class WordlesColumnComponent : ComponentBase<WordlesColumnViewModel, IWordleApplicationState, ApplicationSettings>
 	{
-		[Parameter]
-		public string Words { get; set; } = string.Empty;
-
-		protected override async Task OnParametersSetAsync()
-		{
-			ViewModel.Words = Words?.Split(',', StringSplitOptions.RemoveEmptyEntries) ?? Array.Empty<string>();
-
-			await base.OnParametersSetAsync();
-		}
-
 		protected override void OnInitialized()
 		{
 			AppState.OnChange += OnWordlesChangedAsync;
@@ -31,12 +21,10 @@ namespace Ujeby.Wordlerererer.App.Components
 			IsBusy = true;
 
 			ViewModel.Words = AppState.Wordles.Values.Select(w => w.Word).ToArray();
-			Words = string.Join(',', ViewModel.Words);
 
 			IsBusy = false;
 
-			await this.OnUpdateAsync();
-			//StateHasChanged();
+			StateHasChanged();
 		}
 
 		protected override void Dispose(bool disposing)
